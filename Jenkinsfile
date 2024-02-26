@@ -36,7 +36,7 @@ node {
         if (currentBuild.result == 'UNSTABLE') {
             
             manager.addShortText("you have got fails.")
-            mail bcc: '', body: "<a href='${BUILD_URL}'>jenkins</a>", cc: '', from: '', replyTo: '', subject: 'you have failed tests', to: '8ad5a8295e@nhnent.dooray.com', mimeType: "text/html"
+            mail bcc: '', body: "<a href='${BUILD_URL}'>jenkins</a>", cc: '', from: '', replyTo: '', subject: 'you have failed tests', to: 'hyejo.kwon@nhnent.dooray.com', mimeType: "text/html"
             
             // dooray messenger
             def messengerBody = "you have failed tests"
