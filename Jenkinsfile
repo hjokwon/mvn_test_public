@@ -8,7 +8,7 @@ properties([parameters(
 
 node {
     stage("git") {
-        git checkout scm
+        checkout scm
     }
     
     manager.addShortText(params.jdkVer)
