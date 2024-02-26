@@ -8,7 +8,7 @@ properties([parameters(
 
 node {
     stage("git") {
-        git url: 'https://github.com/hjokwon/mvn_test_public.git', branch: params.branch
+        git checkout scm
     }
     
     manager.addShortText(params.jdkVer)
