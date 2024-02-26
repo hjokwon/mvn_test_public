@@ -8,18 +8,30 @@ node(){
     stage('git'){
         checkout scm
     }
-    stage('jdk8'){
-        def jdk = tool name: 'openjdk8', type:'jdk'
-        withEnv(["JAVA_HOM=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0}/bin"])
+        
+    stage('jdk8') {
+        def jdk = tool name: 'openjdk8', type: 'jdk'
+        withEnv(["JAVA_HOME=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0'}/bin"]) {
+            sh "mvn clean test"
+        }
+    }    
+    stage('jdk11') {
+        def jdk = tool name: 'openjdk11', type: 'jdk'
+        withEnv(["JAVA_HOME=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0'}/bin"]) {
+            sh "mvn clean test"
+        }
+    }     
+    stage('jdk12') {
+        def jdk = tool name: 'openjdk12', type: 'jdk'
+        withEnv(["JAVA_HOME=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0'}/bin"]) {
+            sh "mvn clean test"
+        }
     }
-    stage('jdk11'){
-        def jdk = tool name: 'openjdk11', type:'jdk'
-        withEnv(["JAVA_HOM=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0}/bin"])
-    }
-    stage('jdk12'){
-        def jdk = tool name: 'openjdk12', type:'jdk'
-        withEnv(["JAVA_HOM=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0}/bin"])
+    
+    stage('report') {
+        // No Problem ???
+        junit 'target/surefire-reports/*.xml'        
     }
 
-    parallel branches
+
 }
