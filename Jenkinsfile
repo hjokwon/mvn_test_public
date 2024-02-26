@@ -8,7 +8,7 @@ properties([parameters(
 
 node {
     stage("git") {
-        checkout scm
+        git "https://github.com/hyunil-shin/java-maven-junit-helloworld.git"
     }
     
     manager.addShortText(params.jdkVer)
