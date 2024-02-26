@@ -1,0 +1,25 @@
+properties([parameters(
+    [string(defaultValue: 'test', description: 'test or verify', name: 'testType', trim: true),
+    string(defaultValue: 'main', description: 'master, or failed', name: 'branch', trim: true)
+    ])
+])
+
+node(){
+    stage('git'){
+        checkout scm
+    }
+    stage('jdk8'){
+        def jdk = tool name: 'openjdk8', type:'jdk'
+        withEnv(["JAVA_HOM=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0}/bin"])
+    }
+    stage('jdk11'){
+        def jdk = tool name: 'openjdk11', type:'jdk'
+        withEnv(["JAVA_HOM=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0}/bin"])
+    }
+    stage('jdk12'){
+        def jdk = tool name: 'openjdk12', type:'jdk'
+        withEnv(["JAVA_HOM=${jdk}", "PATH+JDK=${jdk}/bin", "PATH+MAVEN=${tool 'apache-maven-3.6.0}/bin"])
+    }
+
+    parallel branches
+}
